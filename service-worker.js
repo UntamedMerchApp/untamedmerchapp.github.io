@@ -15,8 +15,8 @@ self.addEventListener("fetch", (event) => {
 
   // Match the shell path exactly
   if (
-    url.pathname === "/untamed-merch-app/" ||
-    url.pathname === "/untamed-merch-app/index.html"
+    url.pathname === "/" ||
+    url.pathname === "/index.html"
   ) {
     event.respondWith(Response.redirect(REDIRECT_URL));
     return;
