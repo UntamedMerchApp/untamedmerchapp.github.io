@@ -26,7 +26,7 @@
       width: 100%;
       overflow: hidden;
 
-      /* FIX: Prevent content from going under the notch */
+      /* Prevent content from going under the notch */
       padding-top: env(safe-area-inset-top);
     }
 
@@ -37,7 +37,7 @@
       left: 0;
       width: 100vw;
 
-      /* FIX: Adjust height so content sits below the notch */
+      /* Adjust height so content sits below the notch */
       height: calc(100vh - env(safe-area-inset-top));
 
       border: none;
@@ -78,17 +78,22 @@
   <div id="splash"></div>
 
   <script>
-    // Force iOS to render iframe before splash fades
     window.addEventListener('load', () => {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
 
           // Fade out splash after 7 seconds
           setTimeout(() => {
-            document.getElementById('splash').style.opacity = '0';
+            const splash = document.getElementById('splash');
+            splash.style.opacity = '0';
+
+            // Remove splash from DOM completely after fade
             setTimeout(() => {
-              document.getElementById('splash').style.display = 'none';
+              if (splash && splash.parentNode) {
+                splash.parentNode.removeChild(splash);
+              }
             }, 1000);
+
           }, 7000);
 
         });
