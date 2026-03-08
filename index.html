@@ -27,24 +27,14 @@
       overflow: hidden;
     }
 
-    /* Splash screen */
-    #splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url('untamed-merch-splash-1290x2796.png') center/cover no-repeat;
-      z-index: 9999;
-    }
-
-    /* Fullscreen wrapper */
+    /* Fullscreen iframe loads immediately */
     #app {
       position: fixed;
       top: 0; left: 0;
       width: 100vw;
       height: 100vh;
       border: none;
-      display: none; /* hidden until splash ends */
+      z-index: 1;
     }
 
     iframe {
@@ -52,29 +42,43 @@
       height: 100%;
       border: none;
     }
+
+    /* Splash stays on top for 7 seconds */
+    #splash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('untamed-merch-splash-1290x2796.png') center/cover no-repeat;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 1s ease-out;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Splash -->
-  <div id="splash"></div>
-
-  <!-- Fullscreen app container -->
+  <!-- Fullscreen app loads immediately -->
   <div id="app">
     <iframe src="https://untamed-fitness-training.printify.me/"></iframe>
   </div>
 
+  <!-- Splash overlay -->
+  <div id="splash"></div>
+
   <script>
-    // Force splash to render before timer
+    // Force iOS to render iframe before splash fades
     window.addEventListener('load', () => {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
 
-          // 7-second splash
+          // Fade out splash after 7 seconds
           setTimeout(() => {
-            document.getElementById('splash').style.display = 'none';
-            document.getElementById('app').style.display = 'block';
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => {
+              document.getElementById('splash').style.display = 'none';
+            }, 1000);
           }, 7000);
 
         });
