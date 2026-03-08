@@ -1,7 +1,7 @@
 {
   "name": "Untamed Merch",
   "short_name": "Merch",
-  "start_url": "/untamed-merch-app/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
